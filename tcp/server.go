@@ -7,7 +7,7 @@ package tcp
 import (
 	"context"
 	"net"
-  "github.com/rong118/go_mini_redis/interface/tcp.go"
+  "github.com/rong118/go_mini_redis/interface/tcp"
 )
 
 // Config stores tcp server properties
@@ -20,7 +20,7 @@ var ClientCounter int
 
 // ListenAndServeWithSignal binds port and handle requests, blocking until receive stop signal
 func ListenAndServeWithSignal(cfg *Config, handler tcp.Handler) error {
-  listerner, err := net.Listen("tcp", Config.Address)
+  listerner, err := net.Listen("tcp", cfg.Address)
   if err != nil {
     return err
   }
