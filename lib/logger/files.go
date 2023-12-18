@@ -20,7 +20,6 @@ func isNotExistMkDir(src string) error {
 		return mkDir(src)
 	}
 	return nil
-
 }
 
 func mkDir(src string) error {
