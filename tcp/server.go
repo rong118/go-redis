@@ -7,7 +7,9 @@ import (
 	"os/signal"
 	"sync"
 	"syscall"
+  "fmt"
 	"github.com/rong118/go_mini_redis/interface/tcp"
+	"github.com/rong118/go_mini_redis/lib/logger"
 )
 
 // Config stores tcp server properties
@@ -38,6 +40,7 @@ func ListenAndServeWithSignal(cfg *Config, handler tcp.Handler) error {
     }
   }()
 
+  logger.Info(fmt.Sprintf("bind: %s, start listening...", cfg.Address))
   ListenAndServe(listerner, handler, closeChan)
 
   return nil
@@ -62,6 +65,8 @@ func ListenAndServe(listener net.Listener, handler tcp.Handler, closeChan <-chan
   var waitDone sync.WaitGroup
   for true {
     conn, err := listener.Accept()
+    
+    logger.Info("link accepted")
     if err != nil {
       break
     }
