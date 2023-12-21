@@ -9,6 +9,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+  "github.com/rong118/go_mini_redis/lib/logger"
 )
 
 var (
@@ -73,7 +75,7 @@ func init() {
 		Bind:       "127.0.0.1",
 		Port:       6379,
 		AppendOnly: false,
-		RunID:      utils.RandString(40),
+		// RunID:      utils.RandString(40),
 	}
 }
 
@@ -143,7 +145,7 @@ func SetupConfig(configFilename string) {
 	}
 	defer file.Close()
 	Properties = parse(file)
-	Properties.RunID = utils.RandString(40)
+	// Properties.RunID = utils.RandString(40)
 	configFilePath, err := filepath.Abs(configFilename)
 	if err != nil {
 		return
