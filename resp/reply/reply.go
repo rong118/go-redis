@@ -24,7 +24,7 @@ func(b *BulkReply) ToBytes() []byte {
   return []byte("$" + strconv.Itoa(len(b.Arg)) + CRLF + string(b.Arg) + CRLF)
 }
 
-func MakeBuldReply(arg []byte) *BulkReply {
+func MakeBulkReply(arg []byte) *BulkReply {
   return &BulkReply{Arg: arg}
 }
 
