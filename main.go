@@ -6,6 +6,7 @@ import (
 
 	"github.com/rong118/go_mini_redis/config"
 	"github.com/rong118/go_mini_redis/lib/logger"
+	"github.com/rong118/go_mini_redis/resp/handler"
 	"github.com/rong118/go_mini_redis/tcp"
 )
 
@@ -35,12 +36,19 @@ func main() {
     config.Properties = defaultProperties
   }
 
+  /* This is TCP echo handler example */ 
+  // err := tcp.ListenAndServeWithSignal(
+  //   &tcp.Config{
+  //     Address: fmt.Sprintf("%s:%d", config.Properties.Bind, config.Properties.Port),
+  //   }, 
+  //   tcp.MakeHandler())
+
   err := tcp.ListenAndServeWithSignal(
     &tcp.Config{
       Address: fmt.Sprintf("%s:%d", config.Properties.Bind, config.Properties.Port),
     }, 
-    tcp.MakeHandler())
-
+    handler.MakeHandler())
+  
   if err != nil {
     logger.Error(err)
   }
