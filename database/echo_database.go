@@ -13,6 +13,7 @@ func NewEchoDataBase() *EchoDatabase {
   return &EchoDatabase{}
 }
 
+// echo reply for mocking 
 func(e *EchoDatabase) Exec(client resp.Connection, arg []byte) resp.Reply {
   return reply.MakeBulkReply(arg)
 }
