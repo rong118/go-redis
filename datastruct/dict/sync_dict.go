@@ -113,6 +113,6 @@ func (s *SyncDict) RandomDistinctKeys(limit int) []string {
   return result
 }
   
-func  (s *SyncDict) clear() {
+func  (s *SyncDict) Clear() {
   *s = *MakeSyncDict()
 }
