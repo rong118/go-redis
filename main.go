@@ -2,24 +2,15 @@ package main
 
 import (
 	"fmt"
-	"os"
-
 	"github.com/rong118/go_mini_redis/config"
 	"github.com/rong118/go_mini_redis/lib/logger"
 	"github.com/rong118/go_mini_redis/resp/handler"
 	"github.com/rong118/go_mini_redis/tcp"
 )
 
-const configFile string = "redis.conf"
-
 var defaultProperties = &config.ServerProperties{
   Bind: "0.0.0.0",
   Port: 6379,
-}
-
-func _fileExists(filename string) bool {
-  info, err := os.Stat(filename)
-  return err == nil && !info.IsDir()
 }
 
 func main() {
@@ -30,11 +21,7 @@ func main() {
     TimeFormat: "2006-01-02",
   })
 
-  if _fileExists(configFile){
-    config.SetupConfig(configFile)
-  } else {
-    config.Properties = defaultProperties
-  }
+  config.Properties = defaultProperties
 
   /* This is TCP echo handler example */ 
   // err := tcp.ListenAndServeWithSignal(
