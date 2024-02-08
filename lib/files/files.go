@@ -1,4 +1,4 @@
-package logger
+package files
 
 import (
 	"fmt"
@@ -26,7 +26,7 @@ func mkDir(src string) error {
 	return os.MkdirAll(src, os.ModePerm)
 }
 
-func mustOpen(fileName, dir string) (*os.File, error) {
+func MustOpen(fileName, dir string) (*os.File, error) {
 	if checkPermission(dir) {
 		return nil, fmt.Errorf("permission denied dir: %s", dir)
 	}

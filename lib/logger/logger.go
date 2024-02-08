@@ -10,6 +10,7 @@ import (
 	"runtime"
 	"sync"
 	"time"
+	"github.com/rong118/go_mini_redis/lib/files"
 )
 
 // Settings stores config for Logger
@@ -83,7 +84,7 @@ func NewFileLogger(settings *Settings) (*Logger, error) {
 		settings.Name,
 		time.Now().Format(settings.TimeFormat),
 		settings.Ext)
-	logFile, err := mustOpen(fileName, settings.Path)
+	logFile, err := files.MustOpen(fileName, settings.Path)
 	if err != nil {
 		return nil, fmt.Errorf("logging.Join err: %s", err)
 	}
@@ -105,7 +106,7 @@ func NewFileLogger(settings *Settings) (*Logger, error) {
 				time.Now().Format(settings.TimeFormat),
 				settings.Ext)
 			if path.Join(settings.Path, logFilename) != logger.logFile.Name() {
-				logFile, err := mustOpen(logFilename, settings.Path)
+				logFile, err := files.MustOpen(logFilename, settings.Path)
 				if err != nil {
 					panic("open log " + logFilename + " failed: " + err.Error())
 				}
