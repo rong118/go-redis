@@ -75,7 +75,7 @@ func _parser(reader io.Reader, ch chan<- *Payload) {
           continue
         }
 
-        if state.expectedAtgsCount == 0 {
+        if state.expectedArgsCount == 0 {
           ch <- &Payload{
             Data: &reply.EmptyMultiBulkReply{},
           }
@@ -175,12 +175,12 @@ func parseMultiBulkHeader(msg []byte, state *readState) error {
   }
 
   if expectedLine == 0 {
-    state.expectedAtgsCount = 0
+    state.expectedArgsCount = 0
     return nil
   }else if expectedLine > 0{
     state.msgType = msg[0]
     state.readingMultiLine = true
-    state.expectedAtgsCount = int(expectedLine)
+    state.expectedArgsCount = int(expectedLine)
     state.args = make([][]byte, 0, expectedLine)
     return nil
   }else{
@@ -201,7 +201,7 @@ func parseBulkHeader(msg []byte, state *readState) error {
   }else if state.bulkLen > 0{
     state.msgType = msg[0]
     state.readingMultiLine = true
-    state.expectedAtgsCount = 1
+    state.expectedArgsCount = 1
     state.args = make([][]byte, 0, 1)
     return nil
   }else{
