@@ -2,7 +2,6 @@ package handler
 
 import (
 	"context"
-	"fmt"
 	"io"
 	"net"
 	"strings"
@@ -73,7 +72,7 @@ func (r *RespHandler) Handle(ctx context.Context, conn net.Conn){
       continue
     }
     
-    reply, ok := payload.Data.(*reply.BulkReply)
+    reply, ok := payload.Data.(*reply.MultiBulkReply)
 
 
     if !ok {
@@ -82,7 +81,7 @@ func (r *RespHandler) Handle(ctx context.Context, conn net.Conn){
 
       return
     }
-    result := r.db.Exec(client, reply.Arg)
+    result := r.db.Exec(client, reply.Args)
     if result != nil {
       _ = client.Write(result.ToBytes())
     }else {

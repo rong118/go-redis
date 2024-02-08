@@ -7,7 +7,7 @@ import (
 type Cmdline = [][]byte
 
 type DataBase interface {
-  Exec(client resp.Connection, arg []byte) resp.Reply
+  Exec(client resp.Connection, arg [][]byte) resp.Reply
   Close()
   AfterClientClose(c resp.Connection)
 }
