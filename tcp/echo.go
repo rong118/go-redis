@@ -14,71 +14,70 @@ import (
 )
 
 type EchoClient struct {
-  Conn net.Conn
-  Waiting wait.Wait
+	Conn    net.Conn
+	Waiting wait.Wait
 }
 
 func (e *EchoClient) Close() error {
-  e.Waiting.WaitWithTimeout(10 * time.Second)
-  err := e.Conn.Close()
-  return err
+	e.Waiting.WaitWithTimeout(10 * time.Second)
+	err := e.Conn.Close()
+	return err
 }
 
 type EchoHandler struct {
-  activeConn sync.Map
-  closing atomic.Boolean
+	activeConn sync.Map
+	closing    atomic.Boolean
 }
 
-func MakeHandler() *EchoHandler{
-  return &EchoHandler{}
+func MakeHandler() *EchoHandler {
+	return &EchoHandler{}
 }
 
-func (handler *EchoHandler) Handle(ctx context.Context, conn net.Conn){
-  if handler.closing.Get() {
-    _ = conn.Close()
-  }
+func (handler *EchoHandler) Handle(ctx context.Context, conn net.Conn) {
+	if handler.closing.Get() {
+		_ = conn.Close()
+	}
 
-  // Create internal client
-  client := &EchoClient{
-    Conn: conn,
-  }
+	// Create internal client
+	client := &EchoClient{
+		Conn: conn,
+	}
 
-  handler.activeConn.Store(client, struct{}{})
-  
-  reader := bufio.NewReader(conn)
+	handler.activeConn.Store(client, struct{}{})
 
-  for{
-    msg, err := reader.ReadString('\n')
+	reader := bufio.NewReader(conn)
 
-    // Error handling
-    if err != nil {
-      if err == io.EOF {
-        logger.Info("Connecting close")
-        handler.activeConn.Delete(client)
-      }else{
-        logger.Warn(err)
-      }
-      return
-    }
+	for {
+		msg, err := reader.ReadString('\n')
 
-    // Write msg back to client
-    client.Waiting.Add(1)
-    b := []byte(msg)
-    _, _ = conn.Write(b)
-    client.Waiting.Done()
-  }
+		// Error handling
+		if err != nil {
+			if err == io.EOF {
+				logger.Info("Connecting close")
+				handler.activeConn.Delete(client)
+			} else {
+				logger.Warn(err)
+			}
+			return
+		}
+
+		// Write msg back to client
+		client.Waiting.Add(1)
+		b := []byte(msg)
+		_, _ = conn.Write(b)
+		client.Waiting.Done()
+	}
 }
 
 func (handler *EchoHandler) Close() error {
-  logger.Info("handler close")
-  handler.closing.Set(true)
-  
-  handler.activeConn.Range(func(key, value interface{}) bool {
-    client := key.(*EchoClient)
-    _ = client.Conn.Close()
-    return true
-  })
+	logger.Info("handler close")
+	handler.closing.Set(true)
 
-  return nil
+	handler.activeConn.Range(func(key, value interface{}) bool {
+		client := key.(*EchoClient)
+		_ = client.Conn.Close()
+		return true
+	})
+
+	return nil
 }
-

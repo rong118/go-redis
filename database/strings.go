@@ -8,43 +8,42 @@ import (
 
 // GET k1
 func execGet(db *DB, args [][]byte) resp.Reply {
-  key := string(args[0])
+	key := string(args[0])
 	entity, ok := db.GetEntity(key)
 	if !ok {
 		return reply.MakeNullBulkReply()
 	}
-  bytes := entity.Data.([]byte)
-  return reply.MakeBulkReply(bytes)
+	bytes := entity.Data.([]byte)
+	return reply.MakeBulkReply(bytes)
 }
 
 // SET k, v
 func execSet(db *DB, args [][]byte) resp.Reply {
-  key := string(args[0])
-  val := args[1]
+	key := string(args[0])
+	val := args[1]
 
-  entity := &database.DataEntity{
-    Data: val,
-  }
+	entity := &database.DataEntity{
+		Data: val,
+	}
 
-  db.PutEntity(key, entity)
+	db.PutEntity(key, entity)
 
-  return reply.MakeOkReply()
+	return reply.MakeOkReply()
 
-  
 }
 
 // SETNX
 func execSetnx(db *DB, args [][]byte) resp.Reply {
-  key := string(args[0])
-  val := args[1]
+	key := string(args[0])
+	val := args[1]
 
-  entity := &database.DataEntity{
-    Data: val,
-  }
+	entity := &database.DataEntity{
+		Data: val,
+	}
 
-  result := db.PutIfAbsent(key, entity)
+	result := db.PutIfAbsent(key, entity)
 
-  return reply.MakeIntReply(int64(result))
+	return reply.MakeIntReply(int64(result))
 }
 
 // GETSET
@@ -52,12 +51,12 @@ func execGetSet(db *DB, args [][]byte) resp.Reply {
 	key := string(args[0])
 	value := args[1]
 
-  entity, ok := db.GetEntity(key)
-  db.PutEntity(key, &database.DataEntity{Data: value})
+	entity, ok := db.GetEntity(key)
+	db.PutEntity(key, &database.DataEntity{Data: value})
 
-  if !ok {
-    return reply.MakeNullBulkReply()
-  }
+	if !ok {
+		return reply.MakeNullBulkReply()
+	}
 
 	return reply.MakeBulkReply(entity.Data.([]byte))
 }
@@ -65,21 +64,20 @@ func execGetSet(db *DB, args [][]byte) resp.Reply {
 // STRLEN  k1 v => len
 func execStrLen(db *DB, args [][]byte) resp.Reply {
 	key := string(args[0])
-  entity, ok := db.GetEntity(key)
+	entity, ok := db.GetEntity(key)
 	if !ok {
 		return reply.MakeNullBulkReply()
 	}
 
-  bytes := entity.Data.([]byte)
+	bytes := entity.Data.([]byte)
 
 	return reply.MakeIntReply(int64(len(bytes)))
 }
 
-// 
 func init() {
-  RegisterCommand("GET", execGet, 3)
-  RegisterCommand("SET", execSet, 3)
-  RegisterCommand("SETNX", execSetnx, 3)
-  RegisterCommand("GETSET", execGetSet, 3)
-  RegisterCommand("STRLEN", execStrLen, 3)
+	RegisterCommand("GET", execGet, 3)
+	RegisterCommand("SET", execSet, 3)
+	RegisterCommand("SETNX", execSetnx, 3)
+	RegisterCommand("GETSET", execGetSet, 3)
+	RegisterCommand("STRLEN", execStrLen, 3)
 }

@@ -2,30 +2,30 @@ package reply
 
 import (
 	"bytes"
-	"strconv"
 	"github.com/rong118/go_mini_redis/interface/resp"
+	"strconv"
 )
 
 /* ---- Gereral Type Reply---- */
 var (
-  nullBulkReplyBytes = []byte("$-1")
-  CRLF               = "\r\n"
+	nullBulkReplyBytes = []byte("$-1")
+	CRLF               = "\r\n"
 )
 
 // Reply Bulk
 type BulkReply struct {
-  Arg []byte  //"moody" ==> "$5\r\nmoddy\r\n"
+	Arg []byte //"moody" ==> "$5\r\nmoddy\r\n"
 }
 
-func(b *BulkReply) ToBytes() []byte {
-  if len(b.Arg) == 0 {
-    return nullBulkReplyBytes
-  }
-  return []byte("$" + strconv.Itoa(len(b.Arg)) + CRLF + string(b.Arg) + CRLF)
+func (b *BulkReply) ToBytes() []byte {
+	if len(b.Arg) == 0 {
+		return nullBulkReplyBytes
+	}
+	return []byte("$" + strconv.Itoa(len(b.Arg)) + CRLF + string(b.Arg) + CRLF)
 }
 
 func MakeBulkReply(arg []byte) *BulkReply {
-  return &BulkReply{Arg: arg}
+	return &BulkReply{Arg: arg}
 }
 
 // MultiBulk Reply
@@ -85,8 +85,8 @@ func (r *IntReply) ToBytes() []byte {
 
 // Standard Error Reply
 type ErrorReply interface {
-  Error() string
-  ToBytes() []byte
+	Error() string
+	ToBytes() []byte
 }
 
 type StandardErrReply struct {
@@ -110,4 +110,3 @@ func (r *StandardErrReply) ToBytes() []byte {
 func (r *StandardErrReply) Error() string {
 	return r.Status
 }
-

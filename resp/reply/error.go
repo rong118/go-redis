@@ -3,35 +3,35 @@ package reply
 /* ---- Reply Error ---- */
 
 // Unknown Error
-type UnkownErrReply struct {}
+type UnkownErrReply struct{}
 
 var unknownErrBytes = []byte("-Err unknown\r\n")
 
 func (u UnkownErrReply) Error() string {
-  return "-Err unknown"
+	return "-Err unknown"
 }
 
 func (u UnkownErrReply) ToBytes() []byte {
-  return unknownErrBytes
+	return unknownErrBytes
 }
 
 // Wrong Number Arguments Reply
 type ArgNumErrReply struct {
-  Cmd string
+	Cmd string
 }
 
 func (r *ArgNumErrReply) Error() string {
-  return "-ERR wrong number of arguments for '" + r.Cmd + "' command\r\n"
+	return "-ERR wrong number of arguments for '" + r.Cmd + "' command\r\n"
 }
 
 func (r *ArgNumErrReply) ToBytes() []byte {
-  return []byte("-ERR wrong number of arguments for '" + r.Cmd + "' command\r\n")
+	return []byte("-ERR wrong number of arguments for '" + r.Cmd + "' command\r\n")
 }
 
 func MakeArgNumErrReply(cmd string) *ArgNumErrReply {
-  return &ArgNumErrReply{
-    Cmd : cmd,
-  }
+	return &ArgNumErrReply{
+		Cmd: cmd,
+	}
 }
 
 // Syntax Error Reply
@@ -52,7 +52,7 @@ func (r *SyntaxErrReply) Error() string {
 	return "Err syntax error"
 }
 
-//  Wrong Type Error Reply
+// Wrong Type Error Reply
 type WrongTypeErrReply struct{}
 
 var wrongTypeErrBytes = []byte("-WRONGTYPE Operation against a key holding the wrong kind of value\r\n")

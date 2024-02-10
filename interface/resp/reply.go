@@ -1,5 +1,5 @@
 package resp
 
 type Reply interface {
-  ToBytes() []byte
+	ToBytes() []byte
 }

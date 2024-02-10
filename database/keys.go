@@ -6,7 +6,7 @@ import (
 	"github.com/rong118/go_mini_redis/resp/reply"
 )
 
-//DEL
+// DEL
 func execDel(db *DB, args [][]byte) resp.Reply {
 	keys := make([]string, len(args))
 	for i, v := range args {
@@ -14,11 +14,11 @@ func execDel(db *DB, args [][]byte) resp.Reply {
 	}
 
 	deleted := db.Removes(keys...)
-	
-  return reply.MakeIntReply(int64(deleted))
+
+	return reply.MakeIntReply(int64(deleted))
 }
 
-//EXISTS K1 K2 K3 ...
+// EXISTS K1 K2 K3 ...
 func execExists(db *DB, args [][]byte) resp.Reply {
 	result := int64(0)
 	for _, arg := range args {
@@ -37,7 +37,7 @@ func execFlushDB(db *DB, args [][]byte) resp.Reply {
 	return reply.MakeOkReply()
 }
 
-//TYPE
+// TYPE
 // execType returns the type of entity, including: string, list, hash, set and zset
 func execType(db *DB, args [][]byte) resp.Reply {
 	key := string(args[0])
@@ -46,12 +46,12 @@ func execType(db *DB, args [][]byte) resp.Reply {
 		return reply.MakeStatusReply("none")
 	}
 	switch entity.Data.(type) {
-    case []byte:
-      return reply.MakeStatusReply("string")
-    //TODO: support other data type
+	case []byte:
+		return reply.MakeStatusReply("string")
+		//TODO: support other data type
 	}
-	
-  return &reply.UnkownErrReply{}
+
+	return &reply.UnkownErrReply{}
 }
 
 // RENAME
@@ -68,7 +68,7 @@ func execRename(db *DB, args [][]byte) resp.Reply {
 	}
 	db.PutEntity(dest, entity)
 	db.Remove(src)
-	
+
 	return reply.MakeOkReply()
 }
 
@@ -88,8 +88,8 @@ func execRenameNx(db *DB, args [][]byte) resp.Reply {
 	}
 	db.Removes(src, dest) // clean src and dest with their ttl
 	db.PutEntity(dest, entity)
-	
-  return reply.MakeIntReply(1)
+
+	return reply.MakeIntReply(1)
 }
 
 // execKeys returns all keys matching the given pattern
@@ -101,22 +101,21 @@ func execKeys(db *DB, args [][]byte) resp.Reply {
 	result := make([][]byte, 0)
 	db.data.ForEach(func(key string, val interface{}) bool {
 		if !pattern.IsMatch(key) {
-			result=append(result, []byte(key))
+			result = append(result, []byte(key))
 		}
 
-    return true
+		return true
 	})
 
 	return reply.MakeMultiBulkReply(result)
 }
 
-// 
 func init() {
-  RegisterCommand("del", execDel, -2)
-  RegisterCommand("exist", execExists, -2)
-  RegisterCommand("FLUSHDB", execFlushDB, -1)
-  RegisterCommand("TYPE", execType, 2)
-  RegisterCommand("RENAME", execRename, 3)
-  RegisterCommand("RENAMENX", execRenameNx, 3)
-  RegisterCommand("KEYS", execKeys, 2)
+	RegisterCommand("del", execDel, -2)
+	RegisterCommand("exist", execExists, -2)
+	RegisterCommand("FLUSHDB", execFlushDB, -1)
+	RegisterCommand("TYPE", execType, 2)
+	RegisterCommand("RENAME", execRename, 3)
+	RegisterCommand("RENAMENX", execRenameNx, 3)
+	RegisterCommand("KEYS", execKeys, 2)
 }

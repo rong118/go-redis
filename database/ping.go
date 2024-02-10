@@ -6,10 +6,9 @@ import (
 )
 
 func Ping(db *DB, args [][]byte) resp.Reply {
-  return reply.MakePongReply()
+	return reply.MakePongReply()
 }
 
-// 
 func init() {
-  RegisterCommand("ping", Ping, 1)
+	RegisterCommand("ping", Ping, 1)
 }

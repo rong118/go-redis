@@ -2,6 +2,7 @@ package logger
 
 import (
 	"fmt"
+	"github.com/rong118/go_mini_redis/lib/files"
 	"io"
 	"log"
 	"os"
@@ -10,7 +11,6 @@ import (
 	"runtime"
 	"sync"
 	"time"
-	"github.com/rong118/go_mini_redis/lib/files"
 )
 
 // Settings stores config for Logger
