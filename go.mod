@@ -1,1 +1,1 @@
-module github.com/rong118/go_mini_redis
+module go_mini_redis

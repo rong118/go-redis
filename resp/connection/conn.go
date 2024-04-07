@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/rong118/go_mini_redis/lib/sync/wait"
+	"go_mini_redis/lib/sync/wait"
 )
 
 type Connection struct {

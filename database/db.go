@@ -3,10 +3,10 @@ package database
 import (
 	"strings"
 
-	"github.com/rong118/go_mini_redis/datastruct/dict"
-	"github.com/rong118/go_mini_redis/interface/database"
-	"github.com/rong118/go_mini_redis/interface/resp"
-	"github.com/rong118/go_mini_redis/resp/reply"
+	"go_mini_redis/datastruct/dict"
+	"go_mini_redis/interface/database"
+	"go_mini_redis/interface/resp"
+	"go_mini_redis/resp/reply"
 )
 
 type DB struct {

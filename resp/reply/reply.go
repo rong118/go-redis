@@ -2,7 +2,7 @@ package reply
 
 import (
 	"bytes"
-	"github.com/rong118/go_mini_redis/interface/resp"
+	"go_mini_redis/interface/resp"
 	"strconv"
 )
 

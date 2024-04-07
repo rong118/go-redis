@@ -3,8 +3,8 @@ package tcp
 import (
 	"context"
 	"fmt"
-	"github.com/rong118/go_mini_redis/interface/tcp"
-	"github.com/rong118/go_mini_redis/lib/logger"
+	"go_mini_redis/interface/tcp"
+	"go_mini_redis/lib/logger"
 	"net"
 	"os"
 	"os/signal"

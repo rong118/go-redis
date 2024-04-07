@@ -7,9 +7,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/rong118/go_mini_redis/interface/resp"
-	"github.com/rong118/go_mini_redis/lib/logger"
-	"github.com/rong118/go_mini_redis/resp/reply"
+	"go_mini_redis/interface/resp"
+	"go_mini_redis/lib/logger"
+	"go_mini_redis/resp/reply"
 )
 
 type Payload struct {

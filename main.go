@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/rong118/go_mini_redis/config"
-	"github.com/rong118/go_mini_redis/lib/logger"
-	"github.com/rong118/go_mini_redis/resp/handler"
-	"github.com/rong118/go_mini_redis/tcp"
+	"go_mini_redis/config"
+	"go_mini_redis/lib/logger"
+	"go_mini_redis/resp/handler"
+	"go_mini_redis/tcp"
 )
 
 var defaultProperties = &config.ServerProperties{

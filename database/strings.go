@@ -1,9 +1,9 @@
 package database
 
 import (
-	"github.com/rong118/go_mini_redis/interface/database"
-	"github.com/rong118/go_mini_redis/interface/resp"
-	"github.com/rong118/go_mini_redis/resp/reply"
+	"go_mini_redis/interface/database"
+	"go_mini_redis/interface/resp"
+	"go_mini_redis/resp/reply"
 )
 
 // GET k1

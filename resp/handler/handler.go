@@ -7,13 +7,13 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/rong118/go_mini_redis/database"
-	dataBaseFace "github.com/rong118/go_mini_redis/interface/database"
-	"github.com/rong118/go_mini_redis/lib/logger"
-	"github.com/rong118/go_mini_redis/lib/sync/atomic"
-	"github.com/rong118/go_mini_redis/resp/connection"
-	"github.com/rong118/go_mini_redis/resp/parser"
-	"github.com/rong118/go_mini_redis/resp/reply"
+	"go_mini_redis/database"
+	dataBaseFace "go_mini_redis/interface/database"
+	"go_mini_redis/lib/logger"
+	"go_mini_redis/lib/sync/atomic"
+	"go_mini_redis/resp/connection"
+	"go_mini_redis/resp/parser"
+	"go_mini_redis/resp/reply"
 )
 
 type RespHandler struct {

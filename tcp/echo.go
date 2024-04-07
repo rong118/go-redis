@@ -8,9 +8,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/rong118/go_mini_redis/lib/logger"
-	"github.com/rong118/go_mini_redis/lib/sync/atomic"
-	"github.com/rong118/go_mini_redis/lib/sync/wait"
+	"go_mini_redis/lib/logger"
+	"go_mini_redis/lib/sync/atomic"
+	"go_mini_redis/lib/sync/wait"
 )
 
 type EchoClient struct {

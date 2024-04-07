@@ -1,7 +1,7 @@
 package database
 
 import (
-	"github.com/rong118/go_mini_redis/interface/resp"
+	"go_mini_redis/interface/resp"
 )
 
 type Cmdline = [][]byte

@@ -2,7 +2,7 @@ package logger
 
 import (
 	"fmt"
-	"github.com/rong118/go_mini_redis/lib/files"
+	"go_mini_redis/lib/files"
 	"io"
 	"log"
 	"os"

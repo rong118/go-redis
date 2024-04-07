@@ -1,9 +1,9 @@
 package database
 
 import (
-	"github.com/rong118/go_mini_redis/interface/resp"
-	"github.com/rong118/go_mini_redis/lib/wildcard"
-	"github.com/rong118/go_mini_redis/resp/reply"
+	"go_mini_redis/interface/resp"
+	"go_mini_redis/lib/wildcard"
+	"go_mini_redis/resp/reply"
 )
 
 // DEL

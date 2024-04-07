@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/rong118/go_mini_redis/lib/logger"
+	"go_mini_redis/lib/logger"
 )
 
 var (
