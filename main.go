@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"go_mini_redis/config"
 	"go_mini_redis/lib/logger"
@@ -14,6 +15,11 @@ var defaultProperties = &config.ServerProperties{
 }
 
 func main() {
+	var echoTcp bool
+	flag.BoolVar(&echoTcp, "echo", false, "Test echo tcp server")
+	// Parse command-line arguments
+	flag.Parse()
+
 	logger.Setup(&logger.Settings{
 		Path:       "logs",
 		Name:       "godis",
@@ -23,18 +29,22 @@ func main() {
 
 	config.Properties = defaultProperties
 
-	/* This is TCP echo handler example */
-	// err := tcp.ListenAndServeWithSignal(
-	//   &tcp.Config{
-	//     Address: fmt.Sprintf("%s:%d", config.Properties.Bind, config.Properties.Port),
-	//   },
-	//   tcp.MakeHandler())
+	var err error
 
-	err := tcp.ListenAndServeWithSignal(
-		&tcp.Config{
-			Address: fmt.Sprintf("%s:%d", config.Properties.Bind, config.Properties.Port),
-		},
-		handler.MakeHandler())
+    if echoTcp {
+        /* This is TCP echo handler example */
+        err = tcp.ListenAndServeWithSignal(
+            &tcp.Config{
+                Address: fmt.Sprintf("%s:%d", config.Properties.Bind, config.Properties.Port),
+            },
+            tcp.MakeHandler())
+    }else{
+        err = tcp.ListenAndServeWithSignal(
+            &tcp.Config{
+                Address: fmt.Sprintf("%s:%d", config.Properties.Bind, config.Properties.Port),
+            },
+            handler.MakeHandler())
+    }
 
 	if err != nil {
 		logger.Error(err)
