@@ -20,5 +20,7 @@
 # Go workspace file
 go.work
 
+go_mini_redis
+
 # Log directory
 logs/
